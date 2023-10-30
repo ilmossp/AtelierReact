@@ -6,7 +6,15 @@ axios.defaults.url = "http://localhost:8000"
 
 export async function getCars(){
 	const {data} = await axios.get("/cars")
-	return data
+	return [{
+		"id":1,
+		"marque":"Renault",
+		"modele": "Clio",
+		"annee": "2007",
+		"couleur":"bleu",
+		"prix":30000
+	}]
+
 }
 
 export async function addCar(body:Car){

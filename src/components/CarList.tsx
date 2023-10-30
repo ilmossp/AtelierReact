@@ -6,7 +6,7 @@ import { QueryClient, useMutation, useQuery } from "react-query";
 import toast from "react-hot-toast";
 
 const CarList = () => {
-  const { data } = useQuery("getCars", getCars);
+  const { data, isSuccess } = useQuery("getCars", getCars);
   const submit = useSubmit();
   const queryClient = new QueryClient();
   const mutation = useMutation(deleteCar, {
@@ -31,7 +31,7 @@ const CarList = () => {
     <div className="flex flex-col justify-center items-center card rounded-md shadow-sm mt-20 w-1/2 mx-auto p-4 bg-base-100">
       <h1 className="card-title">List of Cars</h1>
       <div className="m-auto text-center card-body">
-        {data.length != 0 ? (
+        {isSuccess ? (
           <table className="table table-zebra">
             <thead>
               <tr>
