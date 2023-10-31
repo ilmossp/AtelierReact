@@ -2,13 +2,13 @@ import { useSubmit } from "react-router-dom";
 import { Car } from "../utils/types";
 import { Pencil, Trash } from "@phosphor-icons/react";
 import { deleteCar, getCars } from "../utils/api";
-import { QueryClient, useMutation, useQuery } from "react-query";
+import { useQueryClient, useMutation, useQuery } from "react-query";
 import toast from "react-hot-toast";
 
 const CarList = () => {
   const { data, isSuccess } = useQuery("getCars", getCars);
   const submit = useSubmit();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const mutation = useMutation(deleteCar, {
     onSuccess: () => {
       queryClient.invalidateQueries("getCars");
