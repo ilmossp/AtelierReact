@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
-import { Car } from "../utils/types";
 import { useMutation } from "react-query";
 import { addCar, editCar } from "../utils/api";
 import { toast } from "react-hot-toast";
 import { useActionData } from "react-router-dom";
+import { Car } from "../utils/types";
+
 type FormValues = {
   modele: string;
   marque: string;
@@ -11,6 +12,7 @@ type FormValues = {
   prix: number;
   annee: string;
 };
+
 const CarForm = () => {
   const { register, handleSubmit } = useForm<FormValues>();
   const actionData = useActionData();
@@ -30,9 +32,16 @@ const CarForm = () => {
       toast.error("an error has occured");
     },
   });
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit((data: Car) => {
     if (actionData) {
-      editMutation.mutate({ id: actionData as number, car: data });
+      editMutation.mutate({
+        id: actionData as number,
+        modele: data.modele,
+        prix: data.prix,
+        couleur: data.couleur,
+        annee: data.annee,
+        marque: data.marque,
+      });
     } else {
       addmutation.mutate(data);
     }
@@ -48,7 +57,7 @@ const CarForm = () => {
           <input
             {...register("modele")}
             type="text"
-            name="Modele"
+            name="modele"
             className="input input-bordered"
           />
         </div>
@@ -57,7 +66,7 @@ const CarForm = () => {
           <input
             {...register("marque")}
             type="text"
-            name="Marqye"
+            name="marque"
             className="input input-bordered"
           />
         </div>
@@ -66,7 +75,7 @@ const CarForm = () => {
           <input
             {...register("annee")}
             type="text"
-            name="Annee"
+            name="annee"
             className="input input-bordered"
           />
         </div>

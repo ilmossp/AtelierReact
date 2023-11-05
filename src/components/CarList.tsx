@@ -30,9 +30,9 @@ const CarList = () => {
   return (
     <div className="flex flex-col justify-center items-center card rounded-md shadow-sm mt-20 w-1/2 mx-auto p-4 bg-base-100">
       <h1 className="card-title">List of Cars</h1>
-      <div className="m-auto text-center card-body">
-        {isSuccess ? (
-          <table className="table table-zebra">
+      <div className="m-auto text-center card-body overflow-scroll">
+        {isSuccess && data?.length != 0 ? (
+          <table className="table table-zebra ">
             <thead>
               <tr>
                 <th>Marque</th>
@@ -46,6 +46,7 @@ const CarList = () => {
               {data.map((elem) => {
                 return (
                   <tr key={elem.id}>
+                    <td>{elem.id}</td>
                     <td>{elem.marque}</td>
                     <td>{elem.modele}</td>
                     <td>{elem.couleur}</td>
